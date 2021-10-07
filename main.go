@@ -1,33 +1,27 @@
 package main
 
 import (
-	"html/template"
-	"log"
+	"io"
 	"net/http"
-	"net/url"
+	"os"
 )
 
-type dogdogdog int
+func main() {
+	http.HandleFunc("/", dog)
+	http.HandleFunc("/png", pic)
 
-func (m dogdogdog) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	err := req.ParseForm()
-	if err != nil {
-		log.Fatalln(err)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
 	}
-
-	data := struct {
-		Method      string
-		Submissions url.Values
-	}{
-		req.Method,
-		req.Form,
-	}
-	tpl.ExecuteTemplate(w, "index.gohtml", data)
+	http.ListenAndServe(":"+port, nil)
 }
 
-var tpl *template.Template = template.Must(template.ParseFiles("app/views/templates/index.gohtml"))
+func dog(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	io.WriteString(w, `<h1>あきたいぬー</h1><img src="/png">`)
+}
 
-func main() {
-	var d dogdogdog
-	http.ListenAndServe("localhost:8080", d)
+func pic(w http.ResponseWriter, req *http.Request) {
+	http.ServeFile(w, req, "akita.png")
 }
