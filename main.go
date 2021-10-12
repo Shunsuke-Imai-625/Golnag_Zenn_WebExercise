@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"text/template"
 	"time"
 
@@ -41,7 +42,11 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logout)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	http.ListenAndServe("localhost:8080", nil)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	http.ListenAndServe(":"+port, nil)
 
 }
 
