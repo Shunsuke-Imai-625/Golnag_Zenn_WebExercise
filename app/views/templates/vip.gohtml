@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIP</title>
+</head>
+<body>
+
+<h1>this is VIP page.</h1>
+
+{{if .First}}
+    USER NAME {{.UserName}}<br>
+    FIRST {{.First}}<br>
+    LAST {{.Last}}<br>
+
+    <br>PASS WORD {{.Password}}<br>
+{{end}}
+
+
+</body>
+</html>

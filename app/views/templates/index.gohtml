@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>入力送信画面</title>
+    <title>Document</title>
 </head>
 <body>
-
-<header>
-{{if .Method}}<p>リクエストメソッド: {{.Method}}</p>{{end}}
-{{if .Submissions}}
-    {{range $key, $value := .Submissions}}
-            <p><strong>{{$key}}</strong></p>
-            <ul>{{range $value}}<li><em>{{.}}</em></li>{{end}}</ul>
+    {{if .First}}
+        USER NAME {{.UserName}}<br>
+        FIRST {{.First}}<br>
+        LAST {{.Last}}<br>
+        <h2><a href="/logout">log out</a></h2>
+    {{else}}
+        <h2><a href="/signup">sign up</a></h2>
+        <h2><a href="/login">log in</a></h2>
     {{end}}
-{{end}}
-</header>
-
-<form action="/" method="POST">
-        <input type="text" name="fname" placeholder="ここに名前を記入" autofocus autocomplete="off">
-        <input type="submit" name="submit-btn" value="送信">
-</form>
-
+<br>
+<h2>Go to <a href="/vip">the VIP page</a></h2>
 </body>
 </html>
